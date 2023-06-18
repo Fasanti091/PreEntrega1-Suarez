@@ -30,6 +30,11 @@ const NavBar = () => {
                   <Nav.Link as={NavLink} to={"/categoria/1"} className="mx-4 nav-link-bold"> Precios bajos </Nav.Link>
                   <Nav.Link as={NavLink} to={"/categoria/2"} className="mx-4 nav-link-bold"> Precios altos </Nav.Link>
                   <Nav.Link as={NavLink} to={"/categoria/3"} className="mx-4 nav-link-bold"> Precios limitada </Nav.Link>
+                  <li className="nav-item mx-5">
+                     <Link to={"/carrito"}>
+                        <CartWidget />
+                     </Link>
+                  </li>
               </Nav>
               </Navbar.Collapse>
           </div>
