@@ -3,7 +3,6 @@ import { CartContext } from '../CartContext/CartContext';
 import '../Cart/Cart.css';
 const Cart = () => {
   const { cartItems } = useContext(CartContext);
-
   return (
     <div>
       <h2>Carrito de compras</h2>
@@ -23,7 +22,9 @@ const Cart = () => {
             {cartItems.map((item) => (
               <tr key={item.id}>
                 <td>{item.nombre}</td>
-                <td>{item.cantidad}</td>
+                <td>
+                  {item.cantidad}
+                </td>
                 <td>${item.precio}</td>
                 <td>
                   <img src={item.img} alt={item.nombre} className="product-image" />
