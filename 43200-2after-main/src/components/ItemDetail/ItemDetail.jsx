@@ -35,16 +35,17 @@ const ItemDetail = ({ id, nombre, precio, img, info }) => {
             </div>
           </div>
         </div>
-        <div className="col-md-8">
+        <div className="col-md-8" >
           <Card.Body className="detalleProducto">
             <Card.Title className="tituloProducto">{nombre}</Card.Title>
             <div className="precioIdContainer">
               <Card.Text className="precioProducto">Precio: {precio}</Card.Text>
               <Card.Text>ID: {id}</Card.Text>
             </div>
+            <br/>
             <Card.Text className="descripcionProducto">{info}</Card.Text>
-            <div className="inputCantidad">
-              <Form.Group controlId="cantidad">
+            <div className="inputCantidad col-md-12">
+              <Form.Group controlId="cantwidad">
                 <Form.Label>Cantidad:</Form.Label>
                 <Form.Control
                   type="number"
@@ -54,9 +55,13 @@ const ItemDetail = ({ id, nombre, precio, img, info }) => {
                 />
               </Form.Group>
             </div>
-            <Button variant="primary" className="btnAgregarCarrito" onClick={handleAgregarCarrito}>
-              Agregar al carrito
-            </Button>
+            <div>
+              <br/>
+              <Button variant="primary" className="btnAgregarCarrito" onClick={handleAgregarCarrito}>
+                Agregar al carrito
+              </Button>
+            </div>
+            
           </Card.Body>
         </div>
       </div>

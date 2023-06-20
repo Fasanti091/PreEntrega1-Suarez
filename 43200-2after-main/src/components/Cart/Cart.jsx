@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../CartContext/CartContext';
-
+import '../Cart/Cart.css';
 const Cart = () => {
   const { cartItems } = useContext(CartContext);
 
@@ -10,15 +10,28 @@ const Cart = () => {
       {cartItems.length === 0 ? (
         <p>No hay productos en el carrito</p>
       ) : (
-        <ul>
-          {cartItems.map((item) => (
-            <li key={item.id}>
-              <span>{item.nombre}</span>
-              <span>{item.cantidad}</span>
-              <span>{item.precio}</span>
-            </li>
-          ))}
-        </ul>
+        <table className="cart-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Cantidad</th>
+              <th>Precio</th>
+              <th>Imagen</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cartItems.map((item) => (
+              <tr key={item.id}>
+                <td>{item.nombre}</td>
+                <td>{item.cantidad}</td>
+                <td>${item.precio}</td>
+                <td>
+                  <img src={item.img} alt={item.nombre} className="product-image" />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );
