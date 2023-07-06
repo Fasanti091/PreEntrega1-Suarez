@@ -1,29 +1,31 @@
-import React, { useState, useContext } from 'react';
 import './ItemDetail.css';
+import ItemCount from '../ItemCount/ItemCount';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, Button, Form } from 'react-bootstrap';
-import { CartContext } from '../CartContext/CartContext';
 
-const ItemDetail = ({ id, nombre, precio, img, info }) => {
-  const [cantidad, setCantidad] = useState(1); // Estado local para la cantidad del producto
-  const { setTotalQuantity, setCartItems } = useContext(CartContext);
+//Importamos el CarritoContext: 
+import { CarritoContext } from '../../context/CarritoContext';
+//Importo el Hook useContext: 
+import { useContext } from 'react';
 
-  const handleCantidadChange = (event) => {
-    setCantidad(Number(event.target.value));
-  };
+const ItemDetail = ({ id, nombre, precio, img, stock, info }) => {
+  //1) Creamos un estado con la cantidad de productos agregados: 
+  const [agregarCantidad, setAgregarCantidad] = useState(0);
 
-  const handleAgregarCarrito = () => {
-    const nuevoProducto = {
-      id: id,
-      nombre: nombre,
-      precio: precio,
-      info: info,
-      img: img,
-      cantidad: cantidad,
-    };
+  //useContext: 
+  const {agregarProducto} = useContext(CarritoContext);
 
-    setCartItems((prevCartItems) => [...prevCartItems, nuevoProducto]);
-    setTotalQuantity((prevTotalQuantity) => prevTotalQuantity + cantidad);
-  };
+  //2) Creamos una función manejadora de la cantidad: 
+
+  const manejadorCantidad = (cantidad) => {
+    setAgregarCantidad(cantidad);
+    //console.log("Productos agregados:" + cantidad);
+
+    //Ahora acá creo un objeto con el item y la cantidad: 
+    const item = {id, nombre, precio}; 
+    agregarProducto(item, cantidad);
+  }
 
   return (
     <Card className="contenedorItem">
@@ -40,47 +42,22 @@ const ItemDetail = ({ id, nombre, precio, img, info }) => {
             <Card.Title className="tituloProducto">{nombre}</Card.Title>
             <div className="precioIdContainer">
               <Card.Text className="precioProducto">Precio: {precio}</Card.Text>
-              <Card.Text>ID: {id}</Card.Text>
+              <Card.Text>Stock: {stock}</Card.Text>
             </div>
             <br/>
             <Card.Text className="descripcionProducto">{info}</Card.Text>
             <div className="inputCantidad col-md-12">
-              <Form.Group controlId="cantwidad">
-                <Form.Label>Cantidad:</Form.Label>
-                <Form.Control
-                  type="number"
-                  value={cantidad}
-                  min="1"
-                  onChange={handleCantidadChange}
-                />
-              </Form.Group>
+            { agregarCantidad > 0 ? (<Link className='miBtn' to="/cart"> Terminar Compra </Link>) : (<ItemCount inicial={1} stock={stock} funcionAgregar={manejadorCantidad} />)}
             </div>
             <div>
               <br/>
-              <Button variant="primary" className="btnAgregarCarrito" onClick={handleAgregarCarrito}>
-                Agregar al carrito
-              </Button>
+              
             </div>
-            
           </Card.Body>
         </div>
       </div>
     </Card>
   );
-};
+}
 
-export default ItemDetail;
-
-  // return (
-  //   <div className='contenedorItem'>
-  //       <h2>Nombre: {nombre} </h2>
-  //       <h3>Precio: {precio} </h3>
-  //       <h3>ID: {id} </h3>
-  //       <br/>
-  //       <hr/>
-  //       <h5> {info}</h5>
-  //       <br/>
-  //       <br/>
-  //       <img src= {img} alt={nombre} />
-  //   </div>
-  // )
+export default ItemDetail

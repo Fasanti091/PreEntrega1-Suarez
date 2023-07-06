@@ -1,35 +1,31 @@
-import React, { useState, useContext } from 'react';
-import { Button } from 'react-bootstrap';
-import { CartContext } from '../CartContext/CartContext';
+import './ItemCount.css'
+import { useState } from 'react'
 
-const ItemCount = () => {
-  const [count, setCount] = useState(1);
-  const { setTotalQuantity } = useContext(CartContext);
+const ItemCount = ({inicial, stock, funcionAgregar}) => {
+    const [contador, setContador] = useState(inicial);
 
-  const handleIncrement = () => {
-    setCount(count + 1);
-  };
-
-  const handleDecrement = () => {
-    if (count > 1) {
-      setCount(count - 1);
+    const incrementar = () => {
+        if(contador < stock) {
+            setContador(contador + 1);
+        }
     }
-  };
 
-  const handleAddToCart = () => {
-    setTotalQuantity(count); // Actualiza la cantidad total en el contexto del carrito
-  };
+    const decrementar = () => {
+        if(contador > inicial){
+            setContador(contador - 1);
+        }
+    }
 
   return (
-    <div>
-      <div>
-        <Button variant="secondary" onClick={handleDecrement}>-</Button>
-        <span>{count}</span>
-        <Button variant="secondary" onClick={handleIncrement}>+</Button>
-      </div>
-      <Button variant="primary" onClick={handleAddToCart}>Agregar al carrito</Button>
-    </div>
-  );
-};
+    <>
+        <div>
+            <button className='miBtn' onClick={ decrementar }> - </button>
+            <strong> {contador} </strong>
+            <button className='miBtn' onClick={ incrementar }> + </button>
+        </div>
+        <button className='miBtn' onClick={() => funcionAgregar(contador)}> Agregar al Carrito </button>
+    </>
+  )
+}
 
-export default ItemCount;
+export default ItemCount

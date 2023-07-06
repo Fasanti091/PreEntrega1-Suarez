@@ -1,39 +1,52 @@
-import React, { useContext } from 'react';
-import { CartContext } from '../CartContext/CartContext';
-import '../Cart/Cart.css';
+import { CarritoContext } from "../../context/CarritoContext";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import CartItem from "../CartItem/CartItem";
+import "../Cart/Cart.css";
+
 const Cart = () => {
-  const { cartItems } = useContext(CartContext);
+  const { carrito, vaciarCarrito, total, cantidadTotal } = useContext(
+    CarritoContext
+  );
+
+  if (cantidadTotal === 0) {
+    return (
+      <div className="cart-empty">
+        <br />
+        <h2>No hay productos en el carrito</h2>
+        <Link className="miBtn" to="/">
+          Ver Productos
+        </Link>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <h2>Carrito de compras</h2>
-      {cartItems.length === 0 ? (
-        <p>No hay productos en el carrito</p>
-      ) : (
-        <table className="cart-table">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Cantidad</th>
-              <th>Precio</th>
-              <th>Imagen</th>
-            </tr>
-          </thead>
-          <tbody>
-            {cartItems.map((item) => (
-              <tr key={item.id}>
-                <td>{item.nombre}</td>
-                <td>
-                  {item.cantidad}
-                </td>
-                <td>${item.precio}</td>
-                <td>
-                  <img src={item.img} alt={item.nombre} className="product-image" />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+    <div className="container">
+      <h2>Tu Carrito</h2>
+      <div className="cart-items">
+        {carrito.map((producto) => (
+          <CartItem key={producto.id} {...producto} />
+        ))}
+      </div>
+      <div className="cart-summary">
+        <div className="summary-row">
+          <span className="summary-label">Total:</span>
+          <span className="summary-value">${total}</span>
+        </div>
+        <div className="summary-row">
+          <span className="summary-label">Cantidad total:</span>
+          <span className="summary-value">{cantidadTotal}</span>
+        </div>
+        <div className="cart-buttons">
+          <button className="miBtn" onClick={() => vaciarCarrito()}>
+            Vaciar carrito
+          </button>
+        </div>
+        <Link className="miBtn" to="/checkout">
+            Finalizar Compra
+          </Link>
+      </div>
     </div>
   );
 };

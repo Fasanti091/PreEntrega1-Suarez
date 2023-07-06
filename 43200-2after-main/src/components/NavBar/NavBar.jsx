@@ -1,8 +1,8 @@
-import React from "react";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
-import { NavLink, Link } from "react-router-dom";
 import CartWidget from "../CartWidget/CartWidget";
 import "./NavBar.css";
+import { NavLink, Link } from "react-router-dom";
+import React from "react";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 const NavBar = () => {
   const img = "https://smdigital.com.co/wp-content/uploads/2017/03/CasoRedbull_1.png";

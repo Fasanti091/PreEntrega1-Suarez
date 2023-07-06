@@ -14,8 +14,8 @@
     object-fit: contain;
 }
 
-.btnProducto {
-    background-color: #373d20;
+.miBtn {
+    background-color: #a0111d !important;
     color: white;
     font-size: 1.2rem;
     width: 8rem;
